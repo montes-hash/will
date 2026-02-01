@@ -227,7 +227,7 @@ function emailPage() {
 function sendEmail() {
   data.email = document.getElementById("email").value;
 
-  emailjs.send("YOUR_SERVICE_ID", "YOUR_TEMPLATE_ID", {
+  emailjs.send(service_fmeiahi, template_wsjic2i, {
     name: data.name,
     activity: data.activity,
     choice: data.choice,
