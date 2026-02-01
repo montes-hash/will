@@ -1,0 +1,259 @@
+{\rtf1\ansi\ansicpg1252\cocoartf2867
+\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
+{\colortbl;\red255\green255\blue255;}
+{\*\expandedcolortbl;;}
+\margl1440\margr1440\vieww34000\viewh20100\viewkind0
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 <!DOCTYPE html>\
+<html lang="en">\
+<head>\
+<meta charset="UTF-8" />\
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />\
+<title>Be My Valentine \uc0\u10084 \u65039 </title>\
+\
+<script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>\
+\
+<style>\
+* \{\
+  box-sizing: border-box;\
+\}\
+\
+body \{\
+  margin: 0;\
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;\
+  background: radial-gradient(circle at top, #2b1055, #000);\
+  height: 100vh;\
+  overflow: hidden;\
+  display: flex;\
+  justify-content: center;\
+  align-items: center;\
+  color: white;\
+\}\
+\
+/* Floating hearts */\
+.heart \{\
+  position: fixed;\
+  bottom: -20px;\
+  color: rgba(255, 77, 109, 0.6);\
+  font-size: 18px;\
+  animation: float 6s linear infinite;\
+\}\
+\
+@keyframes float \{\
+  0% \{ transform: translateY(0); opacity: 1; \}\
+  100% \{ transform: translateY(-110vh); opacity: 0; \}\
+\}\
+\
+.container \{\
+  background: rgba(255,255,255,0.1);\
+  backdrop-filter: blur(12px);\
+  width: 92%;\
+  max-width: 360px;\
+  padding: 25px;\
+  border-radius: 22px;\
+  text-align: center;\
+  box-shadow: 0 20px 40px rgba(0,0,0,0.5);\
+\}\
+\
+h1, h2 \{\
+  color: #ff4d6d;\
+\}\
+\
+input \{\
+  width: 100%;\
+  padding: 14px;\
+  margin: 12px 0;\
+  border-radius: 12px;\
+  border: none;\
+  font-size: 16px;\
+\}\
+\
+button \{\
+  width: 100%;\
+  padding: 15px;\
+  margin-top: 10px;\
+  border-radius: 14px;\
+  border: none;\
+  font-size: 16px;\
+  cursor: pointer;\
+\}\
+\
+.yes \{\
+  background: linear-gradient(135deg, #ff4d6d, #ff758f);\
+  color: white;\
+\}\
+\
+.option \{\
+  background: rgba(255,255,255,0.2);\
+  color: white;\
+\}\
+\
+.no \{\
+  background: #999;\
+  position: absolute;\
+  padding: 12px 18px;\
+  border-radius: 14px;\
+\}\
+</style>\
+</head>\
+\
+<body>\
+\
+<audio id="bgMusic" loop>\
+  <source src="iris-violin.mp3" type="audio/mpeg">\
+</audio>\
+\
+<div class="container" id="app"></div>\
+\
+<script>\
+emailjs.init("YOUR_PUBLIC_KEY"); // \uc0\u55357 \u56628  replace\
+\
+const app = document.getElementById("app");\
+const music = document.getElementById("bgMusic");\
+let data = \{\};\
+const yourName = "Mic"; // \uc0\u10084 \u65039  CHANGE THIS TO YOUR NAME\
+\
+/* Floating hearts generator */\
+setInterval(() => \{\
+  const heart = document.createElement("div");\
+  heart.className = "heart";\
+  heart.innerHTML = "\uc0\u10084 \u65039 ";\
+  heart.style.left = Math.random() * 100 + "vw";\
+  heart.style.fontSize = Math.random() * 12 + 12 + "px";\
+  document.body.appendChild(heart);\
+  setTimeout(() => heart.remove(), 6000);\
+\}, 600);\
+\
+/* Fade-in music */\
+function startMusic() \{\
+  music.volume = 0;\
+  music.play();\
+  let vol = 0;\
+  const fade = setInterval(() => \{\
+    if (vol < 0.6) \{\
+      vol += 0.02;\
+      music.volume = vol;\
+    \} else \{\
+      clearInterval(fade);\
+    \}\
+  \}, 150);\
+\}\
+\
+/* Pages */\
+function pageName() \{\
+  app.innerHTML = `\
+    <h1>Hello \uc0\u10084 \u65039 </h1>\
+    <input id="name" placeholder="Enter your name" />\
+    <button class="yes" onclick="saveName()">Next</button>\
+  `;\
+\}\
+\
+function saveName() \{\
+  data.name = document.getElementById("name").value;\
+  startMusic();\
+  pageValentine();\
+\}\
+\
+function pageValentine() \{\
+  app.innerHTML = `\
+    <h2>Will you be my Valentine?</h2>\
+    <button class="yes" onclick="yesClicked()">Yes \uc0\u55357 \u56470 </button>\
+    <button class="no" id="noBtn">No \uc0\u55357 \u56468 </button>\
+  `;\
+\
+  const noBtn = document.getElementById("noBtn");\
+  const move = () => \{\
+    noBtn.style.left = Math.random() * 75 + "vw";\
+    noBtn.style.top = Math.random() * 75 + "vh";\
+  \};\
+  noBtn.addEventListener("mouseover", move);\
+  noBtn.addEventListener("touchstart", move);\
+\}\
+\
+function yesClicked() \{\
+  if (navigator.vibrate) navigator.vibrate(120);\
+  pageChoices();\
+\}\
+\
+function pageChoices() \{\
+  app.innerHTML = `\
+    <h2>What do you want to do?</h2>\
+    <button class="option" onclick="eat()">Eat \uc0\u55356 \u57213 \u65039 </button>\
+    <button class="option" onclick="activities()">Activities \uc0\u55356 \u57262 </button>\
+    <button class="option" onclick="cinema()">Cinema \uc0\u55356 \u57260 </button>\
+  `;\
+\}\
+\
+function eat() \{\
+  data.activity = "Eat";\
+  app.innerHTML = `\
+    <h2>Choose one \uc0\u55356 \u57213 \u65039 </h2>\
+    <button class="option" onclick="finish('Yakiniku! Like \uc0\u55358 \u56681 ')">Yakiniku! Like \u55358 \u56681 </button>\
+    <button class="option" onclick="finish('Din Tai Fung \uc0\u55358 \u56671 ')">Din Tai Fung \u55358 \u56671 </button>\
+    <button class="option" onclick="finish('Panda Express \uc0\u55358 \u56673 ')">Panda Express \u55358 \u56673 </button>\
+  `;\
+\}\
+\
+function activities() \{\
+  data.activity = "Activities";\
+  app.innerHTML = `\
+    <h2>Choose one \uc0\u55356 \u57262 </h2>\
+    <button class="option" onclick="finish('Timezone \uc0\u55357 \u56697 \u65039 ')">Timezone \u55357 \u56697 \u65039 </button>\
+    <button class="option" onclick="finish('Billiards \uc0\u55356 \u57265 ')">Billiards \u55356 \u57265 </button>\
+  `;\
+\}\
+\
+function cinema() \{\
+  data.activity = "Cinema";\
+  app.innerHTML = `\
+    <h2>What movie do you want to watch?</h2>\
+    <input id="movie" placeholder="Movie title \uc0\u55356 \u57260 " />\
+    <button class="yes" onclick="saveMovie()">Next</button>\
+  `;\
+\}\
+\
+function saveMovie() \{\
+  data.choice = document.getElementById("movie").value;\
+  emailPage();\
+\}\
+\
+function finish(choice) \{\
+  data.choice = choice;\
+  emailPage();\
+\}\
+\
+function emailPage() \{\
+  app.innerHTML = `\
+    <h2>Almost done \uc0\u55357 \u56460 </h2>\
+    <input id="email" placeholder="Enter your email" />\
+    <button class="yes" onclick="sendEmail()">Submit</button>\
+  `;\
+\}\
+\
+function sendEmail() \{\
+  data.email = document.getElementById("email").value;\
+\
+  emailjs.send(service_fmeiahi, template_wsjic2i, \{\
+    name: data.name,\
+    activity: data.activity,\
+    choice: data.choice,\
+    email: data.email\
+  \});\
+\
+  app.innerHTML = `\
+    <h2>Thank you \uc0\u10084 \u65039 </h2>\
+    <p>\
+      Thank you for choosing to spend Valentine\'92s Day with me.<br><br>\
+      <strong>I love you so much \uc0\u55357 \u56470 </strong><br><br>\
+      \'97 $\{yourName\}\
+    </p>\
+  `;\
+\}\
+\
+pageName();\
+</script>\
+\
+</body>\
+</html>\
+}
